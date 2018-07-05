@@ -9,7 +9,10 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import android.os.Handler;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -29,63 +33,64 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
 
     private static String TAG = "MQTT MAIN";
     private TextView theMsg;
+    MqttClient client = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
 
+        String clientId = MqttClient.generateClientId();
+
+
+        final Button chkButton = findViewById(R.id.check_connection);
+        chkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Log.d(TAG,"client connected: " + client.isConnected());
+            }
+        });
 
         final TextView theMsg = findViewById(R.id.the_msg);
 
 
-        String clientId = MqttClient.generateClientId();
-        MqttAndroidClient client =
-                new MqttAndroidClient(this.getApplicationContext(), "tcp://10.0.61.122:1883",
-                        clientId);
-
         try {
-            IMqttToken token = client.connect();
-            token.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    // We are connected
-                    Log.d(TAG, "onSuccess");
-                }
+            client = new MqttClient("tcp://10.0.61.122:1883", clientId, new MemoryPersistence());
 
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    // Something went wrong e.g. connection timeout or firewall problems
-                    Log.d(TAG, "onFailure");
+            client.setCallback(this);
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setAutomaticReconnect(true);
+            client.connect(options);
 
-                }
-            });
+            String topic = "car_command";
+            client.subscribe(topic);
+
         } catch (MqttException e) {
             e.printStackTrace();
         }
-
 
 
     }
 
     @Override
     public void connectionLost(Throwable cause) {
-        theMsg.setText("connection lost");
+        Log.d(TAG,"connection lost");
     }
 
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
 
 
-        Toast.makeText(MainActivity.this, "Topic: "+topic+"\nMessage: "+message, Toast.LENGTH_LONG).show();
-        theMsg.setText("Topic " + topic + " Message: " + message);
+      //  Toast.makeText(MainActivity.this, "Topic: "+topic+"\nMessage: "+message, Toast.LENGTH_LONG).show();
+        Log.d(TAG, "arrived: " + message.toString());
     }
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken token) {
-        Toast.makeText(MainActivity.this,"delivery complete", Toast.LENGTH_LONG).show();
+   //     Toast.makeText(MainActivity.this,"delivery complete", Toast.LENGTH_LONG).show();
 
     }
 
@@ -111,4 +116,6 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

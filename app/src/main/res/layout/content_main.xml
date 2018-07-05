@@ -20,4 +20,14 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <Button
+        android:id="@+id/check_connection"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="41dp"
+        android:layout_marginStart="32dp"
+        android:text="check connection"
+        app:layout_constraintBottom_toTopOf="@+id/the_msg"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
