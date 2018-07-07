@@ -4,47 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/red"
+    android:background="#47ecfe"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
+    tools:layout_editor_absoluteX="8dp"
     tools:layout_editor_absoluteY="81dp"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:id="@+id/the_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="waiting ..."
-        app:layout_constraintEnd_toEndOf="@+id/check_connection"
-        app:layout_constraintStart_toStartOf="@+id/check_connection"
-        app:layout_constraintTop_toBottomOf="@+id/check_connection" />
 
     <Button
         android:id="@+id/check_connection"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="check connection"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/send_msg"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
         android:text="Send Message"
-        app:layout_constraintEnd_toEndOf="@+id/check_connection"
-        app:layout_constraintStart_toStartOf="@+id/check_connection"
-        app:layout_constraintTop_toBottomOf="@+id/the_msg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/check_connection"
         app:layout_optimizationLevel="standard" />
 
     <android.support.constraint.Guideline
@@ -57,8 +45,37 @@
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="192dp" />
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.design.widget.TextInputLayout
+
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/send_msg">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textSize="24sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
 </android.support.constraint.ConstraintLayout>
