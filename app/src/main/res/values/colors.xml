@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="yellow">#ffff00</color>
     <!-- A light Holo shade of green -->
-    <color name="holo_green_light">#ff99cc00</color>
+    <color name="holo_green_light">#18cc00</color>
     <!-- A light Holo shade of red -->
     <color name="holo_red_light">#ffff4444</color>
 </resources>

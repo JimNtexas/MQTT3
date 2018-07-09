@@ -3,7 +3,9 @@ package com.example.jim.myapplication
 
 //  https://wildanmsyah.wordpress.com/2017/05/11/mqtt-android-client-tutorial/#dependencies
 
+import android.app.Activity
 import android.os.Bundle
+import android.support.annotation.IdRes
 import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -32,11 +34,15 @@ class MainActivity : AppCompatActivity(), MqttCallback, IMqttActionListener {
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //  setSupportActionBar(toolbar);
 
-        val chkButton = findViewById<Button>(R.id.check_connection)
-        chkButton.setOnClickListener { Log.d(TAG, "client connected: " + client!!.isConnected) }
+        var carCommand = CarCommand()
+        var  json = carCommand.goForward ()
+        Log.d(TAG, "json: " + json)
 
-        val txtMsg = findViewById<TextInputEditText>(R.id.textMessage)
+        val chkButton: Button by bind(R.id.check_connection)
+        //todo:  reconnect if not connected
+        chkButton.setOnClickListener { Log.d(TAG, "client connected: " + client!!.isConnected)}
 
+        val txtMsg: TextInputEditText by bind(R.id.textMessage)
 
         val sendMsg = findViewById<Button>(R.id.send_msg)
         sendMsg.setOnClickListener {
@@ -63,15 +69,13 @@ class MainActivity : AppCompatActivity(), MqttCallback, IMqttActionListener {
 
             } else {
                 Log.d(TAG, "couldn't send, client disconnected")
+                setConnectionStatusIconState(false)
             }
         }
 
         //todo - move to function, recall if connect button pressed and connection isn't there
         async(UI){
-            // val theMsg = findViewById<TextView>(R.id.textMessage)
-
             //tcp://10.0.61.122:1883
-
             try {
                 client = MqttClient("tcp://10.211.1.127:1883", clientId, MemoryPersistence())
                 val options = MqttConnectOptions()
@@ -154,6 +158,11 @@ class MainActivity : AppCompatActivity(), MqttCallback, IMqttActionListener {
             statusIcon.setImageResource(R.drawable.ic_baseline_error_24px)
             statusIcon.setColorFilter(red)
         }
+    }
+
+    fun <T : View> Activity.bind(@IdRes res : Int) : Lazy<T> {
+        @Suppress("UNCHECKED_CAST")
+        return lazy(LazyThreadSafetyMode.NONE){ findViewById(res) as T }
     }
 
     companion object {
