@@ -15,11 +15,12 @@
     <Button
         android:id="@+id/check_connection"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:text="check connection"
-        app:layout_constraintBottom_toTopOf="@+id/btnForward"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/connected_icon"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
@@ -38,18 +39,16 @@
 
     <ImageButton
         android:id="@+id/connected_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
         android:tint="@android:color/holo_green_light"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/check_connection"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintStart_toEndOf="@+id/check_connection"
-        app:layout_constraintTop_toTopOf="@+id/check_connection"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_error_24px" />
 
     <Button
@@ -57,54 +56,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBackwards"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRight" />
+        app:layout_constraintStart_toEndOf="@+id/btnBackwards"
+        app:layout_constraintTop_toTopOf="@+id/btnBackwards" />
 
     <Button
         android:id="@+id/btnRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="right"
-        app:layout_constraintBottom_toTopOf="@+id/btnStop"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLeft"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLeft" />
+        app:layout_constraintTop_toTopOf="@+id/btnLeft" />
 
     <Button
         android:id="@+id/btnLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:text="Left"
-        app:layout_constraintBottom_toTopOf="@+id/btnRight"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBackwards" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnForward"
+        app:layout_constraintEnd_toStartOf="@+id/btnRight"
+        app:layout_constraintStart_toEndOf="@+id/btnForward"
+        app:layout_constraintTop_toBottomOf="@+id/check_connection" />
 
     <Button
         android:id="@+id/btnBackwards"
-        android:layout_width="wrap_content"
+        android:layout_width="99dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="Backward"
-        app:layout_constraintBottom_toTopOf="@+id/btnLeft"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/btnStop"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnForward" />
 
     <Button
         android:id="@+id/btnForward"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="Forward"
-        app:layout_constraintBottom_toTopOf="@+id/btnBackwards"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/check_connection" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.27" />
 
 </android.support.constraint.ConstraintLayout>
