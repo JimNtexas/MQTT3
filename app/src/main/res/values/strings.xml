@@ -1,4 +1,4 @@
 <resources>
-    <string name="RoboCar"/>
+    <string name="app_name">RoboCar</string>
     <string name="action_settings">Settings</string>
 </resources>
