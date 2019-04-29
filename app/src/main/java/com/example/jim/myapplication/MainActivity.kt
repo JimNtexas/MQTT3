@@ -63,10 +63,11 @@ class MainActivity : AppCompatActivity(), MqttCallback, IMqttActionListener, OnC
         //todo - move to function, recall if connect button pressed and connection isn't there
         async(UI){
             // office - tcp://10.0.61.122:1883
-            // robo - tcp://10.211.1.111:1883
+            // robocar - tcp://192.168.1.201:1883
             // home pi -"tcp://10.211.1.127:1883"
+            // netgear - "tcp://192.168.1.5"
             try {
-                client = MqttClient("tcp://10.211.1.111:1883", clientId, MemoryPersistence())
+                client = MqttClient("tcp://192.168.1.202:1883", clientId, MemoryPersistence())
                 val options = MqttConnectOptions()
                 options.isAutomaticReconnect = true
                 options.setConnectionTimeout(5)
